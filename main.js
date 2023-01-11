@@ -30,7 +30,7 @@ class Field {
             }
         }
         // If never found
-        console.log('ERROR in getStartPosition(): Start Position not found');
+        throw Error('getStartingPoint(): Start Position not found');
     }
 
     //Start the game, print map and prompt, possibly loop
@@ -104,23 +104,22 @@ class Field {
         }
 
         //Place Start 
-        placeTile("*", newField);
+        Field.placeTile("*", newField);
 
         //Place Hat
-        placeTile("^", newField);   
+        Field.placeTile("^", newField);   
         console.log(newField);
 
         //Place Holes
         const numHoles = Math.floor(area * 0.25);
         for (let i = 0; i < numHoles; i++){
-            placeTile('O', newField);
+            Field.placeTile('O', newField);
         }
 
         return newField;
     }
-} //END Field
 
-function placeTile(tile, fieldMap) {
+    static placeTile(tile, fieldMap) {
     let placed = false;
     while (!placed){
         let y = Math.floor(Math.random() * fieldMap.length);
@@ -132,6 +131,9 @@ function placeTile(tile, fieldMap) {
             }
     }
 }
+} //END Field
+
+
 
 //test field map
 const fieldMap = [
@@ -140,6 +142,6 @@ const fieldMap = [
     ['░','^','░'],
 ];
 
-const randomField = Field.generateField(5,15);
+const randomField = Field.generateField(10,25);
 const myField = new Field(randomField);
 myField.startGame();
